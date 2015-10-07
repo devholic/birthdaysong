@@ -1,0 +1,30 @@
+﻿{% extends "template_base.html" %}
+{% block content %}
+<div class="content-container container">
+    <div class="page-header">
+        <h2 id="timeline">매년 내 생일의 1위 곡은?</h2>
+    </div>
+    <ul class="timeline">
+    {% for data in renderlist %}
+        <li class="timeline-inverted">
+          <div class="timeline-badge">{{ data.yy }}</div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">{{ data.artist }} - {{ data.title }}</h4>
+              <p><small class="text-muted">{{ data.chart }} {{ data.year }}년 {{ data.week }}주차</small></p>
+            </div>
+            <div class="timeline-body">
+              <iframe width="560" height="315" src="{{ data.youtube }}" frameborder="0" allowfullscreen></iframe>
+              <hr>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm" onclick="FB.ui({method:'feed',caption:'{{ data.year }}년 {{ name }}님 생일의 1위곡! #{{ data.artist }} - {{ data.title }}',picture:'{{ data.share_thumb }}',link:'http://birthdaysong.plusquare.com/share?name={{ name }}&birthday={{ birthday }}'},function(response){});">
+                  공유하기
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
